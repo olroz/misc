@@ -1,0 +1,32 @@
+name: CI with Manual Deploy
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:  # allows manual trigger from the Actions tab
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Setting up..."
+
+  build:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - run: echo "Building project..."
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - run: echo "Running tests..."
+
+  # Manual deploy job
+  deploy:
+    runs-on: ubuntu-latest
+    needs: test
+    if: ${{ github.event_name == 'workflow_dispatch' }}
+    steps:
+      - run: echo "🚀 Deploying manually..."
