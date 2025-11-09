@@ -1,0 +1,52 @@
+name: Learning Workflow
+
+# When the workflow should run
+on:
+  push:
+  pull_request:
+  workflow_dispatch:  # allows manual trigger from the Actions tab
+
+jobs:
+  setup:
+    name: Setup Environment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        run: echo "Checking out code..."
+
+      - name: Initialize environment
+        run: echo "Setting up environment variables, tools, etc."
+
+  build:
+    name: Build Project
+    runs-on: ubuntu-latest
+    needs: setup  # waits for 'setup' to finish
+    steps:
+      - name: Prepare build
+        run: echo "Preparing build directory..."
+
+      - name: Build artifacts
+        run: echo "Building the project... (pretend compile step)"
+
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    needs: build  # runs after 'build'
+    steps:
+      - name: Run unit tests
+        run: echo "Running unit tests..."
+
+      - name: Generate test report
+        run: echo "Generating test report..."
+
+  deploy:
+    name: Deploy Application
+    runs-on: ubuntu-latest
+    needs: test  # only runs if tests pass
+    steps:
+      - name: Deploy to environment
+        run: echo "Deploying to staging/production..."
+
+      - name: Post-deploy check
+        run: echo "Performing health check after deployment..."
+
