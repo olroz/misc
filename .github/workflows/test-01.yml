@@ -2,7 +2,7 @@ name: Learning Workflow
 
 # When the workflow should run
 on:
-  push:
+  #push:
   pull_request:
   workflow_dispatch:  # allows manual trigger from the Actions tab
 
