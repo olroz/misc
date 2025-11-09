@@ -1,0 +1,19 @@
+name: CI with Approval Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Build complete."
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: production   # environment that requires approval
+    steps:
+      - run: echo "Deploying to production..."
